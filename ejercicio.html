@@ -8,26 +8,25 @@
 
 
         <h1>Practica</h1>
-        <button class="btn btn-primary" id="boton">Consultar</button>
+        <button class="btn btn-primary" id="boton" onclick="traer()">Consultar</button>
+        <div id="contenido"></div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">_id</th>
+                    <th scope="col">cycle</th>
+                    <th scope="col">ocid</th>
+                    <th scope="col">id</th>
+                </tr>
+            </thead>
+            <tbody id="c">                
+                
+            </tbody>
+        </table>
         <div class="card">
             <div class="card-body">
 
-                <table class="table" id="table">
-                    <thead>
-                        <tr>
-                            <th>_id</th>
-                            <th>publisher</th>
-                            
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                    </tbody>
-
-                </table>
+                
 
             </div>
         </div>
@@ -35,29 +34,39 @@
 
 </html>
 
-
 <script>
-    $("#boton").click(function ()  {
-        var id= $("#busqueda").val();
-        $.ajax({
-            type:"GET",
-            url: "https://api.datos.gob.mx/v2/Releases_SFP",
-            contentType: "application/json",
-            dtaType: "json",
-            success: function (data, testStaus, jqHXR) {
-                $("#table").empty();
-                var rows =
-                "" +
-                "" + data._id + "" +
-                "" + data.publisher + "" +
-                "";
-                $("#table").append(rows);
-                console.log(data);
-            }
-        },
-        
-        )
-        
-    });
+    var contenido = document.querySelector('#contenido')
+    function traer(){
+        fetch('https://api.datos.gob.mx/v2/Releases_SFP')
+        .then(res => res.json())
+        .then(data => {
+
+            c.innerHTML = `
+            
+                    <tr>
+                        <td>${data.results['0']._id}</td>
+                        <td>${data.results['0'].cycle}</td>
+                        <td>${data.results['0'].ocid}</td>
+                        <td>${data.results['0'].id}</td>
+                    </tr>
+                    <tr>
+                        <td>${data.results['1']._id}</td>
+                        <td>${data.results['1'].cycle}</td>
+                        <td>${data.results['1'].ocid}</td>
+                        <td>${data.results['1'].id}</td>
+                    </tr>
+                    <tr>
+                        <td>${data.results['2']._id}</td>
+                        <td>${data.results['2'].cycle}</td>
+                        <td>${data.results['2'].ocid}</td>
+                        <td>${data.results['2'].id}</td>
+                    </tr>
+                </tbody>
+            </table>
+            `
+        })
+    }
 </script>
+
+
 
