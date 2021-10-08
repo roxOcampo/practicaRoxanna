@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
+
+    </head>
+    <body>
+
+
+        <h1>Practica</h1>
+        <button class="btn btn-primary" id="boton">Consultar</button>
+        <div class="card">
+            <div class="card-body">
+
+                <table class="table" id="table">
+                    <thead>
+                        <tr>
+                            <th>_id</th>
+                            <th>publisher</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </tbody>
+
+                </table>
+
+            </div>
+        </div>
+    </body>
+
+</html>
+
+
+<script>
+    $("#boton").click(function ()  {
+        var id= $("#busqueda").val();
+        $.ajax({
+            type:"GET",
+            url: "https://api.datos.gob.mx/v2/Releases_SFP",
+            contentType: "application/json",
+            dtaType: "json",
+            success: function (data, testStaus, jqHXR) {
+                $("#table").empty();
+                var rows =
+                "" +
+                "" + data._id + "" +
+                "" + data.publisher + "" +
+                "";
+                $("#table").append(rows);
+                console.log(data);
+            }
+        },
+        
+        )
+        
+    });
+</script>
+
